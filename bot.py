@@ -8,6 +8,7 @@ from telegram import MessageEntity
 import re
 import requests
 import os
+import bitlyshortener
 
 PORT = int(os.environ.get('PORT', 5000))
 
@@ -18,6 +19,7 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 logger = logging.getLogger(__name__)
 #Read env variables
 TOKEN = os.environ['TOKEN']
+BITLYTOKEN = os.environ['BITLYTOKEN']
 baseURL = os.environ['baseURL']
 affiliate_tag = os.environ['affiliate_tag']
 HEROKU_URL = os.environ['HEROKU_URL']
@@ -25,7 +27,7 @@ HEROKU_URL = os.environ['HEROKU_URL']
 # Define a few command handlers. These usually take the two arguments update and
 # context. Error handlers also receive the raised TelegramError object in error.
 def start(update, context):
-    context.bot.send_message(chat_id=update.effective_chat.id, text="Hola! Este bot responde a los enlaces de amazon añadiendo un codigo de afiliado!")
+    context.bot.send_message(chat_id=update.effective_chat.id, text="Hola! Welcome to amazon link convertor bot, Just send any amazon affiliate link to get your affiliate link !")
 
 # Create the new URL with the refer tag
 def newReferURL(pcode):
@@ -51,6 +53,7 @@ def filterText(update, context):
         m = re.search(r'(?:dp\/[\w]*)|(?:gp\/product\/[\w]*)',msg[start:].split(" ")[0])
         if m != None:
             pCode = m.group(0)
+            pCode = long_urls +=[pCode]
         context.bot.send_message(chat_id=update.message.chat_id,reply_to_message_id=update.message.message_id, text=newReferURL(pCode))
 
 def main():
@@ -63,7 +66,7 @@ def main():
 
     # on different commands - answer in Telegram
     dp.add_handler(CommandHandler("start", start))
-    dp.add_handler(MessageHandler(    
+    dp.add_handler(MessageHandler(
                    Filters.text & (Filters.entity(MessageEntity.URL) |
                                     Filters.entity(MessageEntity.TEXT_LINK)),filterText))
     # Start the Bot
