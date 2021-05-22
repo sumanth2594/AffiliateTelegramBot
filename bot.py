@@ -31,10 +31,10 @@ def start(update, context):
 
 # Create the new URL with the refer tag
 def newReferURL(pcode,URLless_string):
-    modmsg = baseURL+pcode+"?tag="+affiliate_tag
-    modmsg1=URLless_string+"\n"+baseURL+pcode+"?tag="+affiliate_tag
+    #modmsg = baseURL+pcode+"?tag="+affiliate_tag
+    modmsg=URLless_string+"\n"+baseURL+pcode+"?tag="+affiliate_tag
     print(modmsg)
-    print("Printing desired output",modmsg1)
+   # print("Printing desired output",modmsg1)
     return modmsg
 
 #Expand shorted URL (amzn.to links) to normal Amazon URL
