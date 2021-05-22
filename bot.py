@@ -54,7 +54,7 @@ def filterText(update, context):
     if start!=-1:
         msg = unshortURL(msg[start:].split()[0])
     start = msg.find(baseURL)
-    print("printing start value:"+start)
+
     if start != -1:
         #Regular expression to extract the product code. Adjust if different URL schemes are found.
         m = re.search(r'(?:dp\/[\w]*)|(?:gp\/product\/[\w]*)',msg[start:].split(" ")[0])
