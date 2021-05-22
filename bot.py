@@ -8,6 +8,7 @@ from telegram import MessageEntity
 import re
 import requests
 import os
+import bitlyshortener
 
 PORT = int(os.environ.get('PORT', 5000))
 
@@ -21,6 +22,7 @@ TOKEN = os.environ['TOKEN']
 baseURL = os.environ['baseURL']
 affiliate_tag = os.environ['affiliate_tag']
 HEROKU_URL = os.environ['HEROKU_URL']
+BITLYTOKEN = os.environ['BITLYTOKEN']
 
 # Define a few command handlers. These usually take the two arguments update and
 # context. Error handlers also receive the raised TelegramError object in error.
@@ -29,7 +31,8 @@ def start(update, context):
 
 # Create the new URL with the refer tag
 def newReferURL(pcode):
-    return baseURL+pcode+"?tag="+affiliate_tag
+    modmsg= msg+baseURL+pcode+"?tag="+affiliate_tag
+    return modmsg
 
 #Expand shorted URL (amzn.to links) to normal Amazon URL
 def unshortURL(url):
