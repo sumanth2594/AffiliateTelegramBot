@@ -31,7 +31,7 @@ def start(update, context):
 
 # Create the new URL with the refer tag
 def newReferURL(pcode):
-    modmsg = baseURL+pcode+"?tag="+affiliate_tag+pcode
+    modmsg = baseURL+pcode+"?tag="+affiliate_tag
     return modmsg
 
 #Expand shorted URL (amzn.to links) to normal Amazon URL
@@ -45,6 +45,7 @@ def unshortURL(url):
 def filterText(update, context):
     pCode=""
     msg = update.message.text
+    print(msg)
     start = msg.find("amzn.to")
     if start!=-1:
         msg = unshortURL(msg[start:].split()[0])
