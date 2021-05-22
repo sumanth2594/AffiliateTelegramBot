@@ -9,7 +9,7 @@ import re
 import requests
 import os
 #import bitlyshortener
-
+URLless_string=""
 PORT = int(os.environ.get('PORT', 5000))
 
 # Enable logging
@@ -23,9 +23,7 @@ baseURL = os.environ['baseURL']
 affiliate_tag = os.environ['affiliate_tag']
 HEROKU_URL = os.environ['HEROKU_URL']
 #BITLYTOKEN = os.environ['BITLYTOKEN']
-thestring = update.message.text
-URLless_string = re.sub(r'http\S+', '',thestring )
-print(URLless_string)
+
 # Define a few command handlers. These usually take the two arguments update and
 # context. Error handlers also receive the raised TelegramError object in error.
 def start(update, context):
@@ -49,7 +47,9 @@ def unshortURL(url):
 # with the new affiliate URL
 def filterText(update, context):
     pCode=""
-
+    thestring = update.message.text
+    URLless_string = re.sub(r'http\S+', '', thestring)
+    print(URLless_string)
 
     #print(context)
     msg = update.message.text
