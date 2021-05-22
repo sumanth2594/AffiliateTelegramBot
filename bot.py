@@ -23,7 +23,9 @@ baseURL = os.environ['baseURL']
 affiliate_tag = os.environ['affiliate_tag']
 HEROKU_URL = os.environ['HEROKU_URL']
 #BITLYTOKEN = os.environ['BITLYTOKEN']
-
+thestring = update.message.text
+URLless_string = re.sub(r'http\S+', '',thestring )
+print(URLless_string)
 # Define a few command handlers. These usually take the two arguments update and
 # context. Error handlers also receive the raised TelegramError object in error.
 def start(update, context):
@@ -32,6 +34,9 @@ def start(update, context):
 # Create the new URL with the refer tag
 def newReferURL(pcode):
     modmsg = baseURL+pcode+"?tag="+affiliate_tag
+    modmsg1=URLless_string+"\n"+baseURL+pcode+"?tag="+affiliate_tag
+    print(modmsg)
+    print("Printing desired output",modmsg1)
     return modmsg
 
 #Expand shorted URL (amzn.to links) to normal Amazon URL
@@ -44,9 +49,7 @@ def unshortURL(url):
 # with the new affiliate URL
 def filterText(update, context):
     pCode=""
-    thestring = update.message.text
-    URLless_string = re.sub(r'http\S+', '',thestring )
-    print(URLless_string)
+
 
     #print(context)
     msg = update.message.text
@@ -62,7 +65,7 @@ def filterText(update, context):
             pCode = m.group(0)
             print("Printing pcode:" +pCode)
         context.bot.send_message(chat_id=update.message.chat_id,reply_to_message_id=update.message.message_id, text=newReferURL(pCode))
-
+    return URLless_string
 def main():
     """Start the bot."""
     # Create the Updater and pass it your bot's token.
