@@ -44,9 +44,10 @@ def unshortURL(url):
 # with the new affiliate URL
 def filterText(update, context):
     pCode=""
-    text1 = update.message.text
-    text = re.sub(r'^https?:\/\/.*[\r\n]*', '', text1, flags=re.MULTILINE)
-    print(text)
+    thestring = update.message.text
+    URLless_string = re.sub(r'http\S+', '',thestring )
+    print(URLless_string)
+
     #print(context)
     msg = update.message.text
     start = msg.find("amzn.to")
