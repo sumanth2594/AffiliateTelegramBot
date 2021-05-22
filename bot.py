@@ -30,7 +30,7 @@ def start(update, context):
     context.bot.send_message(chat_id=update.effective_chat.id, text="Welcome to amzaon affiliate link generator bot, Send the amazon link to get your short link!! ")
 
 # Create the new URL with the refer tag
-def newReferURL(pcode):
+def newReferURL(pcode,URLless_string):
     modmsg = baseURL+pcode+"?tag="+affiliate_tag
     modmsg1=URLless_string+"\n"+baseURL+pcode+"?tag="+affiliate_tag
     print(modmsg)
@@ -64,7 +64,7 @@ def filterText(update, context):
         if m != None:
             pCode = m.group(0)
             print("Printing pcode:" +pCode)
-        context.bot.send_message(chat_id=update.message.chat_id,reply_to_message_id=update.message.message_id, text=newReferURL(pCode))
+        context.bot.send_message(chat_id=update.message.chat_id,reply_to_message_id=update.message.message_id, text=newReferURL(pCode,URLless_string))
     return URLless_string
 def main():
     """Start the bot."""
