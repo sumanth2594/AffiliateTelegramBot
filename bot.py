@@ -9,11 +9,11 @@ import re
 import requests
 import os
 import pyshorteners
-#import bitlyshortener
-URLless_string=""
-s = ""
-url = ""
-
+s = pyshorteners.Shortener(api_key='BITLYTOKEN')
+print(s)
+url = "https://www.amazon.in/dp/B089MS8VY3/ref=s9_acsd_al_bw_c2_x_1_i?pf_rd_m=A1K21FY43GMZF8&pf_rd_s=merchandised-search-3&pf_rd_r=G03ZN4RS5QE79BMHRZP1&pf_rd_t=101&pf_rd_p=8bb85f20-458f-44ca-b5c2-e95db3f72e29&pf_rd_i=23023572031"
+a = s.bitly.short(url)
+print("Printing the short url", a)
 PORT = int(os.environ.get('PORT', 5000))
 
 # Enable logging
@@ -27,24 +27,15 @@ baseURL = os.environ['baseURL']
 affiliate_tag = os.environ['affiliate_tag']
 HEROKU_URL = os.environ['HEROKU_URL']
 BITLYTOKEN = os.environ['BITLYTOKEN']
-s = pyshorteners.Shortener(api_key=BITLYTOKEN)
+
 # Define a few command handlers. These usually take the two arguments update and
 # context. Error handlers also receive the raised TelegramError object in error.
 def start(update, context):
-    context.bot.send_message(chat_id=update.effective_chat.id, text="Welcome to amzaon affiliate link generator bot, Send the amazon link to get your short link!! ")
+    context.bot.send_message(chat_id=update.effective_chat.id, text="Hola! Este bot responde a los enlaces de amazon añadiendo un codigo de afiliado!")
 
 # Create the new URL with the refer tag
-def newReferURL(pcode,URLless_string):
-    #modmsg = baseURL+pcode+"?tag="+affiliate_tag
-    print("printing text only", URLless_string)
-    url = baseURL+pcode+"?tag="+affiliate_tag
-    print("printing the long url", url)
-    shortlink = s.bitly.short(url)
-    modmsg = URLless_string + "\n" + baseURL + pcode + "?tag=" + affiliate_tag
-    print("printing the short link", shortlink)
-    print("Printing the final msg", modmsg)
-   # print("Printing desired output",modmsg1)
-    return modmsg
+def newReferURL(pcode):
+    return baseURL+pcode+"?tag="+affiliate_tag
 
 #Expand shorted URL (amzn.to links) to normal Amazon URL
 def unshortURL(url):
@@ -56,25 +47,18 @@ def unshortURL(url):
 # with the new affiliate URL
 def filterText(update, context):
     pCode=""
-    thestring = update.message.text
-    URLless_string = re.sub(r'http\S+', '', thestring)
-    print(URLless_string)
-
-    #print(context)
     msg = update.message.text
     start = msg.find("amzn.to")
     if start!=-1:
         msg = unshortURL(msg[start:].split()[0])
     start = msg.find(baseURL)
-
     if start != -1:
         #Regular expression to extract the product code. Adjust if different URL schemes are found.
         m = re.search(r'(?:dp\/[\w]*)|(?:gp\/product\/[\w]*)',msg[start:].split(" ")[0])
         if m != None:
             pCode = m.group(0)
-            print("Printing pcode:" +pCode)
-        context.bot.send_message(chat_id=update.message.chat_id,reply_to_message_id=update.message.message_id, text=newReferURL(pCode,URLless_string))
-    return URLless_string
+        context.bot.send_message(chat_id=update.message.chat_id,reply_to_message_id=update.message.message_id, text=newReferURL(pCode))
+
 def main():
     """Start the bot."""
     # Create the Updater and pass it your bot's token.
