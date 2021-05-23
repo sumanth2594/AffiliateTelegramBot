@@ -11,7 +11,7 @@ import os
 import pyshorteners
 #import bitlyshortener
 URLless_string=""
-pyshorteners.Shortener(api_key='BITLYTOKEN')
+s = pyshorteners.Shortener(api_key='BITLYTOKEN')
 url = ""
 
 PORT = int(os.environ.get('PORT', 5000))
