@@ -28,7 +28,6 @@ affiliate_tag = os.environ['affiliate_tag']
 HEROKU_URL = os.environ['HEROKU_URL']
 BITLYTOKEN = os.environ['BITLYTOKEN']
 s = pyshorteners.Shortener(api_key='BITLYTOKEN')
-print("printing the value of TOKEN", s)
 # Define a few command handlers. These usually take the two arguments update and
 # context. Error handlers also receive the raised TelegramError object in error.
 def start(update, context):
@@ -40,9 +39,9 @@ def newReferURL(pcode,URLless_string):
     print("printing text only", URLless_string)
     url = baseURL+pcode+"?tag="+affiliate_tag
     print("printing the long url", url)
-    #shortlink = s.bitly.short(url)
+    shortlink = s.bitly.short(url)
     modmsg = URLless_string + "\n" + baseURL + pcode + "?tag=" + affiliate_tag
-    #print("printing the short link", shortlink)
+    print("printing the short link", shortlink)
     print("Printing the final msg", modmsg)
    # print("Printing desired output",modmsg1)
     return modmsg
