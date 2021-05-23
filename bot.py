@@ -11,7 +11,7 @@ import os
 import pyshorteners
 #import bitlyshortener
 URLless_string=""
-s = pyshorteners.Shortener(api_key='BITLYTOKEN')
+s = ""
 url = ""
 
 PORT = int(os.environ.get('PORT', 5000))
@@ -27,7 +27,8 @@ baseURL = os.environ['baseURL']
 affiliate_tag = os.environ['affiliate_tag']
 HEROKU_URL = os.environ['HEROKU_URL']
 BITLYTOKEN = os.environ['BITLYTOKEN']
-
+s = pyshorteners.Shortener(api_key='BITLYTOKEN')
+print("printing the value of TOKEN", s)
 # Define a few command handlers. These usually take the two arguments update and
 # context. Error handlers also receive the raised TelegramError object in error.
 def start(update, context):
