@@ -8,8 +8,12 @@ from telegram import MessageEntity
 import re
 import requests
 import os
+import pyshorteners
 #import bitlyshortener
 URLless_string=""
+pyshorteners.Shortener(api_key='BITLYTOKEN')
+url = ""
+
 PORT = int(os.environ.get('PORT', 5000))
 
 # Enable logging
@@ -22,7 +26,7 @@ TOKEN = os.environ['TOKEN']
 baseURL = os.environ['baseURL']
 affiliate_tag = os.environ['affiliate_tag']
 HEROKU_URL = os.environ['HEROKU_URL']
-#BITLYTOKEN = os.environ['BITLYTOKEN']
+BITLYTOKEN = os.environ['BITLYTOKEN']
 
 # Define a few command handlers. These usually take the two arguments update and
 # context. Error handlers also receive the raised TelegramError object in error.
@@ -33,9 +37,10 @@ def start(update, context):
 def newReferURL(pcode,URLless_string):
     #modmsg = baseURL+pcode+"?tag="+affiliate_tag
     modmsg=URLless_string+"\n"+baseURL+pcode+"?tag="+affiliate_tag
-    print(modmsg)
+    shortlink = s.bitly.short(modmsg)
+    print(shortlink)
    # print("Printing desired output",modmsg1)
-    return modmsg
+    return shortlink
 
 #Expand shorted URL (amzn.to links) to normal Amazon URL
 def unshortURL(url):
