@@ -36,10 +36,10 @@ def start(update, context):
 # Create the new URL with the refer tag
 def newReferURL(pcode,URLless_string):
     #modmsg = baseURL+pcode+"?tag="+affiliate_tag
-    url = "baseURL+pcode+"?tag="+affiliate_tag"
+    url = baseURL+pcode+"?tag="+affiliate_tag
 
-    shortlink = s.bitly.short(modmsg)
-    modmsg = URLless_string + "\n" +shortlink
+    shortlink = s.bitly.short(url)
+    modmsg = URLless_string + "\n" + baseURL + pcode + "?tag=" + affiliate_tag
     print(shortlink)
     print(modmsg)
    # print("Printing desired output",modmsg1)
