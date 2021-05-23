@@ -8,12 +8,7 @@ from telegram import MessageEntity
 import re
 import requests
 import os
-import pyshorteners
-s = pyshorteners.Shortener(api_key='BITLYTOKEN')
-print(s)
-url = "https://www.amazon.in/dp/B089MS8VY3/ref=s9_acsd_al_bw_c2_x_1_i?pf_rd_m=A1K21FY43GMZF8&pf_rd_s=merchandised-search-3&pf_rd_r=G03ZN4RS5QE79BMHRZP1&pf_rd_t=101&pf_rd_p=8bb85f20-458f-44ca-b5c2-e95db3f72e29&pf_rd_i=23023572031"
-a = s.bitly.short(url)
-print("Printing the short url", a)
+
 PORT = int(os.environ.get('PORT', 5000))
 
 # Enable logging
@@ -26,7 +21,6 @@ TOKEN = os.environ['TOKEN']
 baseURL = os.environ['baseURL']
 affiliate_tag = os.environ['affiliate_tag']
 HEROKU_URL = os.environ['HEROKU_URL']
-BITLYTOKEN = os.environ['BITLYTOKEN']
 
 # Define a few command handlers. These usually take the two arguments update and
 # context. Error handlers also receive the raised TelegramError object in error.
