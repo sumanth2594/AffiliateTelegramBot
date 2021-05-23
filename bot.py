@@ -39,9 +39,9 @@ def newReferURL(pcode,URLless_string):
     print("printing text only", URLless_string)
     url = baseURL+pcode+"?tag="+affiliate_tag
     print("printing the long url", url)
-    shortlink = s.bitly.short(url)
+    #shortlink = s.bitly.short(url)
     modmsg = URLless_string + "\n" + baseURL + pcode + "?tag=" + affiliate_tag
-    print("printing the short link", shortlink)
+    #print("printing the short link", shortlink)
     print("Printing the final msg", modmsg)
    # print("Printing desired output",modmsg1)
     return modmsg
